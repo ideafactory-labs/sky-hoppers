@@ -26,8 +26,24 @@ jobs:
           bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/914e7df21a07ef503a81201c76d2b11c789d3fca/scripts/download-actionlint.bash) 1.7.12
           ./actionlint -color
 
+      - name: Install test dependencies (Playwright + Chromium)
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
       - name: Project checks
         run: make test
+        env:
+          EVIDENCE_DIR: evidence
+
+      # Screenshots (title, gameplay, level complete, phone) and frame-time numbers.
+      - name: Upload evidence
+        if: always() && hashFiles('evidence/**') != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: evidence
+          path: evidence/
+          retention-days: 14
 
       # Tier 0 of the cost ladder: a throwaway Kubernetes cluster on the runner, for
       # projects that ship an e2e/kind.sh. Free on public repositories.

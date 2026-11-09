@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="description" content="Sky Hoppers — a free, original browser platformer. Hop across floating bridges, dodge storms, reach the rainbow gate.">
+<meta name="theme-color" content="#3a86ff">
+<title>Sky Hoppers</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l3.8 8 8.7 1-6.4 6 1.7 8.6L16 22.4 8.2 26.6 9.9 18 3.5 12l8.7-1z' fill='%23ffd23f' stroke='%23e89a00' stroke-width='1.5'/%3E%3C/svg%3E">
+<style>
+  :root { --bg: #14213d; --pad: rgba(255,255,255,0.18); --pad-down: rgba(255,255,255,0.45); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: #fff; overflow: hidden;
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: none; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  .stage { position: relative; width: min(100vw, calc((100vh - 30px) * 16 / 9)); aspect-ratio: 16 / 9; }
+  body.touch .stage { width: min(100vw, calc((100vh - 120px) * 16 / 9)); }
+  canvas { display: block; width: 100%; height: 100%; background: #7ec8f2; border-radius: 6px; touch-action: none; }
+  .hud-buttons { position: absolute; top: 2.4%; right: 1.5%; display: flex; gap: 8px; }
+  .hud-buttons button { width: 38px; height: 38px; border-radius: 50%; border: 0; font-size: 18px; line-height: 1;
+    background: rgba(15,25,50,0.4); color: #fff; cursor: pointer; }
+  .hud-buttons button:focus-visible { outline: 3px solid #ffd23f; }
+  .pad { display: none; width: 100%; max-width: 900px; justify-content: space-between; align-items: center;
+    padding: 12px 16px; gap: 12px; }
+  body.touch .pad { display: flex; }
+  .pad .dirs { display: flex; gap: 14px; }
+  .pad button { width: 80px; height: 80px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5);
+    background: var(--pad); color: #fff; font-size: 30px; touch-action: none; -webkit-tap-highlight-color: transparent; }
+  .pad button.jump { width: 96px; height: 96px; font-size: 18px; font-weight: bold; background: rgba(255,123,84,0.45); }
+  .pad button.down { background: var(--pad-down); transform: scale(0.95); }
+  /* Phones in landscape: lay the pad over the bottom corners of the game. */
+  @media (orientation: landscape) and (max-height: 500px) {
+    body.touch .stage { width: min(100vw, calc(100vh * 16 / 9)); }
+    body.touch .pad { position: fixed; bottom: 0; left: 0; right: 0; max-width: none; pointer-events: none; }
+    body.touch .pad button { pointer-events: auto; width: 68px; height: 68px; opacity: 0.8; }
+    body.touch .pad button.jump { width: 80px; height: 80px; }
+  }
+  .credit { font-size: 12px; opacity: 0.55; margin-top: 6px; }
+  body.touch .credit { display: none; }
+  .credit a { color: #9cc9ff; }
+  noscript { padding: 20px; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <canvas id="game" width="1280" height="720" aria-label="Sky Hoppers game"></canvas>
+    <div class="hud-buttons">
+      <button id="btn-pause" type="button" aria-label="Pause" hidden>⏸</button>
+      <button id="btn-mute" type="button" aria-label="Sound">🔇</button>
+    </div>
+  </div>
+  <div class="pad" aria-label="Touch controls">
+    <div class="dirs">
+      <button type="button" data-key="left" aria-label="Move left">◀</button>
+      <button type="button" data-key="right" aria-label="Move right">▶</button>
+    </div>
+    <button type="button" class="jump" data-key="jump" aria-label="Jump">JUMP</button>
+  </div>
+  <p class="credit">Original free game · no ads, no accounts · <a href="https://github.com/ideafactory-labs/sky-hoppers">source</a></p>
+  <noscript>Sky Hoppers needs JavaScript to run.</noscript>
+  <script src="js/levels.js"></script>
+  <script src="js/sim.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
