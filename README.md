@@ -1,5 +1,9 @@
 # sky-hoppers
 
+### ▶ [Play Sky Hoppers](https://ideafactory-labs.github.io/sky-hoppers/) — https://ideafactory-labs.github.io/sky-hoppers/
+
+Free, original, in your browser on desktop or phone. Nothing to install.
+
 > **Stage: experiment.** Created by [factory](https://github.com/krmayankk/factory) from
 > [its idea file](https://github.com/krmayankk/factory/blob/main/ideas/sky-hoppers.md). Built by agents behind CI and human approval gates;
 > expect rough edges until the stage changes.
@@ -10,8 +14,8 @@
 the sky, dodge storms, collect stars and reach the rainbow gate. Open the link and play,
 on a desktop or a phone. There's nothing to install, no account and no ads.
 
-**Play:** https://ideafactory-labs.github.io/sky-hoppers/ (published by the `pages`
-workflow from `site/` on every push to `main`).
+**Play:** https://ideafactory-labs.github.io/sky-hoppers/. The `pages` workflow
+publishes `site/` there on every push to `main`.
 
 - **Three original hoppers**, all drawn in code: **Puff**, a cloud sprite with a floaty
   jump; **Tock**, a wind-up tin robot who is fast but heavy; and **Mira**, a paper-kite
