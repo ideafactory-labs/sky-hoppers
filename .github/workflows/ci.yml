@@ -21,18 +21,13 @@ jobs:
       - name: Workflow policy (pinned actions, no pull_request_target, explicit permissions)
         run: python3 .factory/check_workflows.py .github/workflows
 
+      # Built from source through the Go module proxy (checksums verified against
+      # sum.golang.org). The release-tarball download kept returning a 92-byte error
+      # page from github.com and failing this job, retries included.
       - name: actionlint
-        # Retried: a GitHub release-download blip once served a 92-byte error page
-        # instead of the tarball and failed the required check.
         run: |
-          for attempt in 1 2 3; do
-            if bash <(curl -sSfL --retry 3 https://raw.githubusercontent.com/rhysd/actionlint/914e7df21a07ef503a81201c76d2b11c789d3fca/scripts/download-actionlint.bash) 1.7.12; then
-              break
-            fi
-            if [ "$attempt" = 3 ]; then exit 1; fi
-            echo "actionlint download failed (attempt $attempt), retrying"; sleep $((attempt * 10))
-          done
-          ./actionlint -color
+          GOBIN="$RUNNER_TEMP/bin" go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
+          "$RUNNER_TEMP/bin/actionlint" -color
 
       - name: Install test dependencies (Playwright + Chromium)
         run: |
