@@ -44,14 +44,6 @@ jobs:
         env:
           EVIDENCE_DIR: evidence
 
-      # The exact site/ that Pages would publish. Download, unzip, open index.html to play.
-      - name: Upload playable build
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: play-sky-hoppers
-          path: site/
-          retention-days: 14
-
       # Screenshots (title, gameplay, level complete, phone) and frame-time numbers.
       - name: Upload evidence
         if: always() && hashFiles('evidence/**') != ''
