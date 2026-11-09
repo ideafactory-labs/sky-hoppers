@@ -1,0 +1,11 @@
+{
+  "name": "sky-hoppers",
+  "private": true,
+  "description": "Original, free browser platformer: hop across floating sky bridges.",
+  "scripts": {
+    "test": "make test"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

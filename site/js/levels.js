@@ -1,0 +1,145 @@
+/* Sky Hoppers — level data. Coordinates are in a 640×360 view; y grows downward and
+ * a bridge's y is its walkable top. Every level is proven beatable by every character
+ * in tests/sim.test.js (beam search over the real simulation). */
+(function (root) {
+  'use strict';
+  const SH = (root.SH = root.SH || {});
+  const PI = Math.PI;
+
+  function B(x, y, w, extra) { return Object.assign({ x: x, y: y, w: w }, extra || {}); }
+
+  SH.LEVELS = [
+    {
+      name: 'Morning Breeze',
+      theme: { top: '#7ec8f2', bottom: '#d9f1ff', sun: '#fff3b0', hills: '#b9e2f7', night: false },
+      length: 3040,
+      start: { x: 60, y: 280 },
+      bridges: [
+        B(30, 280, 300),
+        B(390, 250, 160),
+        B(620, 250, 100, { ax: 40, period: 180 }),
+        B(800, 230, 220),
+        B(1080, 240, 100, { ay: 30, period: 200 }),
+        B(1240, 260, 240),
+        B(1540, 250, 90, { type: 'crumble' }),
+        B(1690, 230, 90, { type: 'crumble' }),
+        B(1840, 240, 260),
+        B(2160, 250, 200, { type: 'conveyor', speed: 1.0 }),
+        B(2420, 240, 200),
+        B(2680, 250, 320),
+      ],
+      stars: [
+        { x: 160, y: 268 }, { x: 200, y: 268 }, { x: 240, y: 268 }, { x: 360, y: 215 },
+        { x: 470, y: 238 }, { x: 670, y: 205 }, { x: 900, y: 175 }, { x: 1130, y: 190 },
+        { x: 1360, y: 248 }, { x: 1585, y: 215 }, { x: 1735, y: 195 }, { x: 1980, y: 228 },
+        { x: 2260, y: 238 }, { x: 2520, y: 228 }, { x: 2780, y: 238 },
+      ],
+      balls: [{ x1: 850, x2: 1000, y: 219, speed: 1.2 }],
+      birds: [{ x1: 2440, y1: 150, x2: 2610, y2: 150, period: 220 }],
+      gusts: [{ x: 1900, y: 120, w: 200, h: 120, fx: -0.7, on: 90, off: 90 }],
+      checkpoints: [{ x: 1300, y: 260 }],
+      gate: { x: 2900, y: 250 },
+    },
+    {
+      name: 'Sunset Drift',
+      theme: { top: '#f59e7a', bottom: '#ffe1a8', sun: '#ffd27a', hills: '#f3b7a0', night: false },
+      length: 3720,
+      start: { x: 60, y: 270 },
+      bridges: [
+        B(30, 270, 260),
+        B(360, 250, 90, { ax: 50, period: 160 }),
+        B(560, 230, 90, { ax: 50, period: 160, phase: PI }),
+        B(720, 240, 200),
+        B(990, 220, 90, { ay: 40, period: 170 }),
+        B(1150, 220, 90, { ay: 40, period: 170, phase: PI }),
+        B(1310, 250, 220),
+        B(1600, 240, 220, { type: 'conveyor', speed: -1.0 }),
+        B(1890, 230, 80, { type: 'crumble' }),
+        B(2030, 210, 80, { type: 'crumble' }),
+        B(2170, 230, 80, { type: 'crumble' }),
+        B(2320, 240, 260),
+        B(2650, 230, 100, { ax: 60, period: 200 }),
+        B(2880, 220, 200),
+        B(3150, 230, 90, { ax: 30, ay: 30, period: 180 }),
+        B(3320, 250, 320),
+      ],
+      stars: [
+        { x: 150, y: 258 }, { x: 330, y: 215 }, { x: 405, y: 205 }, { x: 605, y: 190 },
+        { x: 820, y: 228 }, { x: 1035, y: 170 }, { x: 1195, y: 170 }, { x: 1420, y: 238 },
+        { x: 1710, y: 200 }, { x: 1930, y: 195 }, { x: 2070, y: 170 }, { x: 2210, y: 195 },
+        { x: 2450, y: 190 }, { x: 2700, y: 190 }, { x: 2980, y: 208 }, { x: 3195, y: 185 },
+        { x: 3420, y: 238 },
+      ],
+      balls: [
+        { x1: 760, x2: 900, y: 229, speed: 1.4 },
+        { x1: 2350, x2: 2560, y: 229, speed: 1.3, phase: 100 },
+        { x1: 3360, x2: 3520, y: 239, speed: 1.5 },
+      ],
+      birds: [
+        { x1: 1370, y1: 200, x2: 1500, y2: 160, period: 160 },
+        { x1: 2900, y1: 150, x2: 3060, y2: 150, period: 150, phase: PI / 2 },
+      ],
+      gusts: [
+        { x: 2320, y: 110, w: 260, h: 130, fx: -0.9, on: 100, off: 80 },
+        { x: 1600, y: 120, w: 220, h: 120, fx: 0.6, on: 60, off: 60 },
+      ],
+      checkpoints: [{ x: 1350, y: 250 }, { x: 2400, y: 240 }],
+      gate: { x: 3560, y: 250 },
+    },
+    {
+      name: 'Thunderhead',
+      theme: { top: '#232a4d', bottom: '#5b5f8f', sun: '#e8e6ff', hills: '#3c4170', night: true },
+      length: 4600,
+      start: { x: 60, y: 270 },
+      bridges: [
+        B(30, 270, 220),
+        B(310, 250, 80, { type: 'crumble' }),
+        B(460, 230, 80, { ax: 50, period: 140 }),
+        B(640, 220, 180),
+        B(880, 240, 200, { type: 'conveyor', speed: -1.3 }),
+        B(1150, 220, 80, { ay: 45, period: 150 }),
+        B(1300, 220, 80, { ay: 45, period: 150, phase: PI / 2 }),
+        B(1450, 240, 200),
+        B(1720, 220, 70, { type: 'crumble' }),
+        B(1850, 200, 70, { type: 'crumble' }),
+        B(1980, 220, 70, { type: 'crumble' }),
+        B(2120, 230, 80, { ax: 60, period: 150 }),
+        B(2320, 240, 220),
+        B(2600, 230, 160, { type: 'conveyor', speed: 1.5 }),
+        B(2820, 210, 80, { ax: 40, ay: 30, period: 170 }),
+        B(3000, 230, 240),
+        B(3300, 210, 70, { type: 'crumble' }),
+        B(3430, 220, 80, { ay: 50, period: 140 }),
+        B(3580, 200, 70, { type: 'crumble' }),
+        B(3720, 230, 200),
+        B(3990, 220, 80, { ax: 50, period: 130 }),
+        B(4180, 240, 340),
+      ],
+      stars: [
+        { x: 140, y: 258 }, { x: 350, y: 215 }, { x: 500, y: 190 }, { x: 730, y: 170 },
+        { x: 980, y: 200 }, { x: 1190, y: 160 }, { x: 1340, y: 160 }, { x: 1550, y: 228 },
+        { x: 1755, y: 185 }, { x: 1885, y: 160 }, { x: 2015, y: 185 }, { x: 2160, y: 190 },
+        { x: 2430, y: 200 }, { x: 2680, y: 195 }, { x: 2860, y: 160 }, { x: 3120, y: 218 },
+        { x: 3335, y: 170 }, { x: 3470, y: 165 }, { x: 3615, y: 160 }, { x: 3820, y: 218 },
+        { x: 4030, y: 180 }, { x: 4300, y: 228 },
+      ],
+      balls: [
+        { x1: 900, x2: 1060, y: 229, speed: 1.4 },
+        { x1: 2340, x2: 2520, y: 229, speed: 1.6, phase: 60 },
+        { x1: 3020, x2: 3220, y: 219, speed: 1.8 },
+        { x1: 4200, x2: 4400, y: 229, speed: 2.0, phase: 120 },
+      ],
+      birds: [
+        { x1: 650, y1: 172, x2: 810, y2: 172, period: 170 },
+        { x1: 2330, y1: 140, x2: 2530, y2: 170, period: 180, phase: PI },
+        { x1: 3730, y1: 140, x2: 3910, y2: 185, period: 160 },
+      ],
+      gusts: [
+        { x: 1450, y: 100, w: 200, h: 145, fx: -1.2, on: 80, off: 70 },
+        { x: 3720, y: 100, w: 200, h: 135, fx: 0.9, on: 90, off: 60 },
+      ],
+      checkpoints: [{ x: 1480, y: 240 }, { x: 3040, y: 230 }],
+      gate: { x: 4420, y: 240 },
+    },
+  ];
+})(typeof window !== 'undefined' ? window : globalThis);
