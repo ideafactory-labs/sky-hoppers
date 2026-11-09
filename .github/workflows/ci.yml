@@ -22,8 +22,16 @@ jobs:
         run: python3 .factory/check_workflows.py .github/workflows
 
       - name: actionlint
+        # Retried: a GitHub release-download blip once served a 92-byte error page
+        # instead of the tarball and failed the required check.
         run: |
-          bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/914e7df21a07ef503a81201c76d2b11c789d3fca/scripts/download-actionlint.bash) 1.7.12
+          for attempt in 1 2 3; do
+            if bash <(curl -sSfL --retry 3 https://raw.githubusercontent.com/rhysd/actionlint/914e7df21a07ef503a81201c76d2b11c789d3fca/scripts/download-actionlint.bash) 1.7.12; then
+              break
+            fi
+            if [ "$attempt" = 3 ]; then exit 1; fi
+            echo "actionlint download failed (attempt $attempt), retrying"; sleep $((attempt * 10))
+          done
           ./actionlint -color
 
       - name: Install test dependencies (Playwright + Chromium)
