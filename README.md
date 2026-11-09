@@ -1,0 +1,20 @@
+# sky-hoppers
+
+> **Stage: experiment.** Created by [factory](https://github.com/krmayankk/factory) from
+> [its idea file](https://github.com/krmayankk/factory/blob/main/ideas/sky-hoppers.md). Built by agents behind CI and human approval gates;
+> expect rough edges until the stage changes.
+
+## What it is
+
+See the idea file. Agents replace this section as the project takes shape.
+
+## Working on it
+
+| Command | Does |
+|---|---|
+| `make test` | the project's checks (CI runs the same) |
+| `make up` / `make down` | start / stop anything that costs money — only via the `live` workflow, after approval |
+| `make verify` | the runtime check from the idea's "How we'll know it works" |
+| `make evidence` | capture proof (logs, screenshots, cost) for the PR |
+
+Guardrails this repository was born with are listed in [`CLAUDE.md`](CLAUDE.md).
